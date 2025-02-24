@@ -1,0 +1,26 @@
+int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
+    int i=0, j=0;
+    bool isFind=false;
+    *returnSize = 2;
+    int* result = (int*)malloc(sizeof(int)*(*returnSize));
+
+    for (i=0; i<numsSize; i=i+1)
+    {
+        for (j=0; j<numsSize; j=j+1)
+        {
+            if (i != j)
+            {
+                if (nums[i]+nums[j] == target)
+                {
+                    result[0] = i;
+                    result[1] = j;
+                    isFind = true;
+                }
+            }
+            if (isFind) break;
+        }
+        if (isFind) break;
+    }
+
+    return result;
+}
