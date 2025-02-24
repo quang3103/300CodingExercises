@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "directsolution.h": "c",
+        "main.h": "c"
+    }
+}
