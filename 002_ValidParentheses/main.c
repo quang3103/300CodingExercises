@@ -38,18 +38,25 @@ void push(Stack* s, char c) {
         newNode->previous = NULL;
         s->tail = newNode;
     }
-    newNode->previous = s->tail;
-    s->tail = newNode;
+    else {
+        newNode->previous = s->tail;
+        s->tail = newNode;
+    }
     s->size += 1;
 }
 
 void pop(Stack* s) {
+    Node *temp = NULL;
     if (s->tail->previous != NULL) {
-        Node *temp = s->tail;
+        temp = s->tail;
         s->tail = temp->previous;
-        free(temp);
-        s->size -= 1;
     }
+    else {
+        temp = s->tail;
+        s->tail = NULL;
+    }
+    free(temp);
+    s->size -= 1;
 }
 
 char top(Stack* s) {
@@ -98,7 +105,7 @@ bool isValid(char* s) {
     free(myStack);
     return true;
 }
-char a[] = "]]";
+char a[] = "[]";
 
 int main() {
     printf("is valid: %d\n", isValid(a));
