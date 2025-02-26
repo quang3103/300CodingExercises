@@ -8,6 +8,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 struct TreeNode {
     int val;
@@ -99,6 +100,54 @@ struct TreeNode* invertTree(struct TreeNode* root) {
     return root; //this will be NULL, it will right or left of the leaf
 }
 
-int main() {
+TNode* ConstructTreeFromArray(int* a, size_t idx, size_t size) {
+    //With a full binary tree, a node at (i) index will have left node at (2*(i)+1) index and right node at (2*(i)+2) index
+    //Therefore, a tree will have at max (size/2-1) nodes that are not leaf
+    TNode* newNode = (TNode*)malloc(sizeof(TNode));
+    newNode->val = a[idx];
+    if (idx >= size/2) { //this will be a leaf
+        newNode->left = NULL;
+        newNode->right = NULL;
+    }
+    else {
+        //TODO: check for right node exists or not? 2*idx+1 >= size?
+        newNode->left = ConstructTreeFromArray(a, 2*idx+1, size);
+        newNode->right = ConstructTreeFromArray(a, 2*idx+2, size);
+    }
+    return newNode;
+}
 
+void printNode(TNode* node) {
+    if (node->left != NULL) printf("%d ", node->left->val);
+    if (node->right != NULL) printf("%d ", node->right->val);
+    if (node->left != NULL) printNode(node->left);
+    if (node->right != NULL) printNode(node->right);
+}
+
+void printTree(TNode* root) {
+    
+    printf("%d ", root->val);
+    printNode(root);
+}
+
+void freeTree(TNode* node) {
+    if (node != NULL) {
+        freeTree(node->left);
+        freeTree(node->right);
+        free(node);
+    }
+}
+
+int main() {
+    int a[]= {4,2,7,1,3,6,9};
+    TNode* myNode = ConstructTreeFromArray(a, 0, sizeof(a)/sizeof(int));
+
+    printTree(myNode);
+    printf("\n");
+    TNode* invertMyNode = invertTree(myNode);
+
+    printTree(invertMyNode);
+    freeTree(myNode);
+
+    return 0;
 }
