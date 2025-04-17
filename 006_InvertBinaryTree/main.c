@@ -154,10 +154,9 @@ TNode* ConstructTreeFromArray(int* a, size_t idx, size_t size) {
     //With a full binary tree, a node at (i) index will have left node at (2*(i)+1) index and right node at (2*(i)+2) index
     //Therefore, a tree will have at max ((size-1)/2) internal nodes and ((size+1)/2) leaves
     //this can only work with full binary tree
-    int val = 0;
     TNode* newNode = (TNode*)malloc(sizeof(TNode));
     newNode->val = a[idx];
-    val = a[idx];
+
     if (idx < (size-1)/2) { //this will be a node, dix start from 0 to (number of nodes - 1)
         newNode->left = ConstructTreeFromArray(a, 2*idx+1, size);
         newNode->right = ConstructTreeFromArray(a, 2*idx+2, size);
